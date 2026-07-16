@@ -33,7 +33,7 @@ export default function NavLinks() {
   return (
     <>
       {/* Navbar */}
-      <nav className="sticky top-15 lg:top-27 z-40 bg-white shadow-sm border-b">
+      <nav className="sticky top-15 lg:top-27 z-40 bg-white shadow-sm ">
         <div className="max-w-7xl mx-auto px-4">
 
           <div className="h-10 flex items-center justify-between">

@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar/Navabr";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Toaster } from "react-hot-toast";
+import Footer from "@/components/Footer/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,6 +45,7 @@ export default function RootLayout({ children }) {
     pauseOnHover
     theme="colored"
   />
+  <Footer/>
 </ReduxProvider>
 
       </body>

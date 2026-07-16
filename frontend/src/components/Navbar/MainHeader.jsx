@@ -25,10 +25,10 @@ export default function MainHeader() {
   }, [dispatch]);
 
   return (
-    <header className="sticky top-0 lg:top-10 z-40 bg-white shadow-sm border-b">
+    <header className="sticky top-0 lg:top-10 z-40 bg-white shadow-sm ">
       <div className="max-w-7xl mx-auto px-4">
 
-        <div className="flex h-17 items-center justify-between gap-4">
+        <div className="flex h-18 items-center justify-between gap-4">
 
           {/* Logo */}
           <Link href="/" className="flex-shrink-0">

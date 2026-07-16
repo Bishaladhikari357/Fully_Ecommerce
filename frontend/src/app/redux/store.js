@@ -6,7 +6,7 @@ import checkoutReducer from "./Slices/CheckoutSlice";
 import blogsReducer from "./Slices/BlogsSlice";
 import blogDetailReducer from "./Slices/BlogsDetailSlice";
 import sliderReducer from "./Slices/SliderSlice";
-
+import contactReducer from "./Slices/ContactEmailSlice";
 export const store = configureStore({
   reducer: {
     products: ProductReducer,
@@ -16,5 +16,6 @@ export const store = configureStore({
         blogs: blogsReducer,
          blogDetail: blogDetailReducer,
          sliders: sliderReducer,
+         contact: contactReducer,
   },
 });
