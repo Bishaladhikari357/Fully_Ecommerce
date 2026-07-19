@@ -26,9 +26,9 @@ export default function ProductDetail() {
     (state) => state.productDetail
   );
 
-  const { loading: cartLoading } = useSelector(
-    (state) => state.cart
-  );
+ const { updating: cartLoading } = useSelector(
+  (state) => state.cart
+);
 
   useEffect(() => {
     if (slug) {
@@ -37,19 +37,21 @@ export default function ProductDetail() {
   }, [dispatch, slug]);
 
   const handleAddToCart = async () => {
-    const result = await dispatch(
-      addToCart({
-        productId: product.id,
-        quantity: 1,
-      })
-    );
+  const result = await dispatch(
+    addToCart({
+      productId: product.id,
+      quantity: 1,
+    })
+  );
 
-    if (addToCart.fulfilled.match(result)) {
-      toast.success("Added to Cart 🛒");
-    } else {
-      toast.error("Something went wrong!");
-    }
-  };
+  console.log(result);
+
+  if (addToCart.fulfilled.match(result)) {
+    toast.success("Added to Cart 🛒");
+  } else {
+    toast.error(result.payload || "Something went wrong!");
+  }
+};
 
   if (loading)
     return (

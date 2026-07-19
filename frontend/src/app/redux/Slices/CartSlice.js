@@ -16,7 +16,11 @@ const getSessionKey = () => {
   let sessionKey = localStorage.getItem("sessionKey");
 
   if (!sessionKey) {
-    sessionKey = crypto.randomUUID();
+
+    sessionKey =
+      Date.now().toString(36) +
+      Math.random().toString(36).substring(2);
+
     localStorage.setItem(
       "sessionKey",
       sessionKey
@@ -39,29 +43,43 @@ export const addToCart = createAsyncThunk(
     {rejectWithValue}
   )=>{
 
-    try{
+    try {
+  const sessionKey = getSessionKey();
 
-      const sessionKey = getSessionKey();
+  console.log({
+    sessionKey,
+    productId,
+    quantity,
+  });
 
-      const res = await axios.post(
-        `${API}/add`,
-        {
-          sessionKey,
-          productId,
-          quantity
-        }
-      );
-
-      return res.data;
-
-    }catch(error){
-
-      return rejectWithValue(
-        error.response?.data?.message ||
-        "Add cart failed"
-      );
-
+  const res = await axios.post(
+    `${API}/add`,
+    {
+      sessionKey,
+      productId,
+      quantity,
     }
+  );
+
+  console.log("SUCCESS", res.data);
+
+  return res.data;
+
+} catch (error) {
+
+  console.log("ERROR", error);
+
+  if (error.response) {
+    console.log("Status:", error.response.status);
+    console.log("Data:", error.response.data);
+  } else {
+    console.log("Message:", error.message);
+  }
+
+  return rejectWithValue(
+    error.response?.data?.message || error.message
+  );
+}
 
   }
 );
@@ -114,13 +132,15 @@ export const updateCart = createAsyncThunk(
     {rejectWithValue}
   )=>{
 
-
     try{
+
+      const sessionKey = getSessionKey();
 
 
       const res = await axios.patch(
         `${API}/update`,
         {
+          sessionKey,
           itemId,
           quantity
         }
@@ -128,7 +148,6 @@ export const updateCart = createAsyncThunk(
 
 
       return res.data;
-
 
 
     }catch(error){
@@ -150,36 +169,41 @@ export const updateCart = createAsyncThunk(
 // Remove Item
 // ===============================
 export const removeCartItem = createAsyncThunk(
-  "cart/removeCartItem",
+"cart/removeCartItem",
 
-  async(
-    itemId,
-    {rejectWithValue}
-  )=>{
+async(
+itemId,
+{rejectWithValue}
+)=>{
 
+try{
 
-    try{
-
-
-      const res = await axios.delete(
-        `${API}/remove/${itemId}`
-      );
+const sessionKey=getSessionKey();
 
 
-      return res.data;
+const res = await axios.delete(
+`${API}/remove/${itemId}`,
+{
+data:{
+sessionKey
+}
+}
+);
 
 
-    }catch(error){
-
-      return rejectWithValue(
-        error.response?.data?.message ||
-        "Remove failed"
-      );
-
-    }
+return res.data;
 
 
-  }
+}catch(error){
+
+return rejectWithValue(
+error.response?.data?.message ||
+"Remove failed"
+);
+
+}
+
+}
 );
 
 
