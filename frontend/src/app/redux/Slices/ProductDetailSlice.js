@@ -6,7 +6,7 @@ export const fetchProductDetail = createAsyncThunk(
   "productDetail/fetchProductDetail",
   async (slug) => {
     const response = await axios.get(
-      `http://192.168.100.149:8000/api/products/${slug}`
+      `https://fully-ecommerce-1.onrender.com/api/products/${slug}`
     );
     return response.data;
   }

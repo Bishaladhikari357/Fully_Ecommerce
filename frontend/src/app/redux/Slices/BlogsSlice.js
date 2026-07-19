@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-const API_URL = "http://localhost:8000/api/blogs";
+const API_URL = "https://fully-ecommerce-1.onrender.com/api/blogs";
 
 
 // Fetch Blogs
