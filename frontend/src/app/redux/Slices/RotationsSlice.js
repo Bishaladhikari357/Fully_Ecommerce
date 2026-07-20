@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API = "http://localhost:8000/api/rotations";
+const API = "https://fully-ecommerce-1.onrender.com/api/rotations";
 
 // ==========================
 // Fetch Rotations
