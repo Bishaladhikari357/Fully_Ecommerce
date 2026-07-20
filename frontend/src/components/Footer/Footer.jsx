@@ -106,11 +106,62 @@ export default function Footer() {
 
           <ul className="space-y-3">
 
-            <li><Link href="/">Home</Link></li>
-            <li><Link href="/products">Products</Link></li>
-            <li><Link href="/categories">Categories</Link></li>
-            <li><Link href="/offers">Offers</Link></li>
-            <li><Link href="/blogs">Blogs</Link></li>
+         <li>
+  <Link
+    href="/"
+    onClick={() =>
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      })
+    }
+  >
+    Home
+  </Link>
+</li>
+
+<li>
+  <Link
+    href="/products"
+    onClick={() =>
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      })
+    }
+  >
+ Products
+  </Link>
+</li>
+
+<li>
+  <Link
+    href="/blogs"
+    onClick={() =>
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      })
+    }
+  >
+    Blogs
+  </Link>
+</li>
+
+<li>
+  <Link
+    href="/contact"
+    onClick={() =>
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      })
+    }
+  >
+    Contact
+  </Link>
+</li>
+            
 
           </ul>
 

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   FaBars,
   FaTimes,
@@ -29,13 +30,13 @@ const categories = [
 
 export default function NavLinks() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <>
       {/* Navbar */}
-      <nav className="sticky top-15 lg:top-27 z-40 bg-white shadow-sm ">
+      <nav className="sticky top-15 lg:top-27 z-40 bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4">
-
           <div className="h-10 flex items-center justify-between">
 
             {/* Mobile Button */}
@@ -49,14 +50,14 @@ export default function NavLinks() {
             {/* Desktop Menu */}
             <div className="hidden lg:flex text-orange-400 items-center gap-8">
 
+              {/* Categories */}
               <div className="group relative">
-
-                <button className="flex items-center  gap-2 font-semibold hover:text-orange-500">
+                <button className="flex items-center gap-2 font-semibold hover:text-orange-500">
                   Categories
                   <FaChevronDown size={12} />
                 </button>
 
-                <div className="absolute top-full text-orange-400 left-0 hidden group-hover:grid grid-cols-4 gap-8 bg-white shadow-2xl rounded-xl p-8 w-[900px]">
+                <div className="absolute top-full left-0 hidden group-hover:grid grid-cols-4 gap-8 bg-white shadow-2xl rounded-xl p-8 w-[900px]">
 
                   {categories.map((cat) => (
                     <div key={cat.title}>
@@ -80,42 +81,54 @@ export default function NavLinks() {
                   ))}
 
                 </div>
-
               </div>
 
-              <Link href="/" className="hover:text-orange-500">
+              <Link
+                href="/"
+                scroll={pathname !== "/"}
+                className="hover:text-orange-500"
+              >
                 Home
               </Link>
 
-              <Link href="/products" className="hover:text-orange-500">
+              <Link
+                href="/products"
+                className="hover:text-orange-500"
+              >
                 Shop
               </Link>
 
-              <Link href="/new-arrivals" className="hover:text-orange-500">
+              <Link
+                href="/new-arrivals"
+                className="hover:text-orange-500"
+              >
                 New Arrivals
               </Link>
 
-            
-
-              <Link href="/blogs" className="hover:text-orange-500">
+              <Link
+                href="/blogs"
+                className="hover:text-orange-500"
+              >
                 Blog
               </Link>
 
-              <Link href="/contact" className="hover:text-orange-500">
+              <Link
+                href="/contact"
+                className="hover:text-orange-500"
+              >
                 Contact
               </Link>
 
             </div>
 
             {/* Mobile Title */}
-           <h2 className="text-orange-500 text-xl">
-  Menu
-</h2>
+            <h2 className="text-orange-500 text-xl">
+              Menu
+            </h2>
 
             <div className="w-6 lg:hidden"></div>
 
           </div>
-
         </div>
       </nav>
 
@@ -130,28 +143,25 @@ export default function NavLinks() {
       {/* Mobile Drawer */}
       <div
         className={`fixed top-0 left-0 h-full w-72 bg-white shadow-xl z-50 transform transition-transform duration-300 ${
-          menuOpen
-            ? "translate-x-0"
-            : "-translate-x-full"
+          menuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
 
-        <div className="flex items-center text-orange-400 justify-between p-5 border-b">
-
-          <h2 className="text-xl  font-bold">
+        <div className="flex items-center justify-between p-5 border-b">
+          <h2 className="text-xl font-bold text-orange-500">
             Menu
           </h2>
 
           <button onClick={() => setMenuOpen(false)}>
             <FaTimes size={22} />
           </button>
-
         </div>
 
-        <div className="overflow-y-auto text-gray-600 h-full pb-24">
+        <div className="overflow-y-auto h-full pb-24 text-gray-600">
 
           <Link
             href="/"
+            scroll={pathname !== "/"}
             className="block px-5 py-3 border-b hover:bg-gray-100"
             onClick={() => setMenuOpen(false)}
           >
@@ -159,7 +169,7 @@ export default function NavLinks() {
           </Link>
 
           <Link
-            href="/shop"
+            href="/products"
             className="block px-5 py-3 border-b hover:bg-gray-100"
             onClick={() => setMenuOpen(false)}
           >
@@ -174,10 +184,8 @@ export default function NavLinks() {
             New Arrivals
           </Link>
 
-    
-
           <Link
-            href="/blog"
+            href="/blogs"
             className="block px-5 py-3 border-b hover:bg-gray-100"
             onClick={() => setMenuOpen(false)}
           >
@@ -199,8 +207,10 @@ export default function NavLinks() {
             </h3>
 
             {categories.map((cat) => (
-              <div key={cat.title} className="mb-5">
-
+              <div
+                key={cat.title}
+                className="mb-5"
+              >
                 <h4 className="font-semibold text-orange-500 mb-2">
                   {cat.title}
                 </h4>
@@ -211,7 +221,7 @@ export default function NavLinks() {
                     <Link
                       key={item}
                       href={`/category/${item.toLowerCase()}`}
-                      className="text-gray-600 hover:text-orange-500"
+                      className="hover:text-orange-500"
                       onClick={() => setMenuOpen(false)}
                     >
                       {item}

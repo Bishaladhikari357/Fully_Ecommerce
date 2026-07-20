@@ -7,6 +7,8 @@ import blogsReducer from "./Slices/BlogsSlice";
 import blogDetailReducer from "./Slices/BlogsDetailSlice";
 import sliderReducer from "./Slices/SliderSlice";
 import contactReducer from "./Slices/ContactEmailSlice";
+import rotationsReducer from "./Slices/RotationsSlice"; 
+
 export const store = configureStore({
   reducer: {
     products: ProductReducer,
@@ -17,5 +19,6 @@ export const store = configureStore({
          blogDetail: blogDetailReducer,
          sliders: sliderReducer,
          contact: contactReducer,
+        rotations: rotationsReducer,
   },
 });
