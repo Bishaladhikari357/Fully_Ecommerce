@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API = "https://fully-ecommerce-1.onrender.com/api/cart";
+const API = "https://fully-ecommerce.onrender.com/api/cart";
 
 
 // ===============================

@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API = "https://fully-ecommerce-1.onrender.com/api/contact";
+const API = "https://fully-ecommerce.onrender.com/api/contact";
 
 // ==========================
 // Send Contact Message

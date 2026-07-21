@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_URL = "https://fully-ecommerce-1.onrender.com/api/sliders";
+const API_URL = "https://fully-ecommerce.onrender.com/api/sliders";
 
 // Fetch Sliders
 export const fetchSliders = createAsyncThunk(

@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-const API_URL = "https://fully-ecommerce-1.onrender.com/api/blogs";
+const API_URL = "https://fully-ecommerce.onrender.com/api/blogs";
 
 // Fetch Blog Detail by Slug
 export const fetchBlogDetail = createAsyncThunk(
