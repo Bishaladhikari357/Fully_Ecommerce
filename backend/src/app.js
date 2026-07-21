@@ -7,25 +7,9 @@ dotenv.config();
 
 const app = express();
 
-const allowedOrigins = [
-  "http://localhost:3000",
-  "http://192.168.100.149:3000",
-  "https://fully-ecommerce.vercel.app",
-  "https://fully-ecommerce-csgmpwrvw-bishal123.vercel.app",
-];
-
 app.use(
   cors({
-    origin(origin, callback) {
-      // Allow requests from Postman or server-to-server requests
-      if (!origin) return callback(null, true);
-
-      if (allowedOrigins.includes(origin)) {
-        return callback(null, true);
-      }
-
-      return callback(new Error(`Origin ${origin} not allowed by CORS`));
-    },
+    origin: true, // Allow the requesting origin
     credentials: true,
   })
 );
