@@ -113,39 +113,7 @@ const addToCart = async ({
 // ==========================
 // Get Cart
 // ==========================
-// ==========================
-// Get Cart
-// ==========================
-const getCart = async (sessionKey) => {
-  if (!sessionKey) {
-    throw new Error("Session key is required");
-  }
-
-  const cart = await prisma.cart.findUnique({
-    where: {
-      sessionKey,
-    },
-    include: {
-      items: {
-        include: {
-          product: true,
-        },
-      },
-    },
-  });
-
-  // Return an empty cart if it doesn't exist yet
-  if (!cart) {
-    return {
-      id: null,
-      sessionKey,
-      items: [],
-      total: 0,
-    };
-  }
-
-  return buildCart(cart);
-};
+z
 
 // ==========================
 // Update Quantity
