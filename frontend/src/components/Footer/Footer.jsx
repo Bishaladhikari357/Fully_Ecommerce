@@ -241,27 +241,30 @@ export default function Footer() {
           </h4>
 
           <div className="flex gap-3">
+<Image
+  src="https://img.icons8.com/color/48/visa.png"
+  alt="Visa"
+  width={48}
+  height={48}
+  style={{ width: "auto", height: "30px" }}
+/>
 
-            <Image
-              src="https://img.icons8.com/color/48/visa.png"
-              width={45}
-              height={30}
-              alt="Visa"
-            />
+<Image
+  src="https://img.icons8.com/color/48/mastercard.png"
+  alt="Mastercard"
+  width={48}
+  height={48}
+  style={{ width: "auto", height: "30px" }}
+/>
 
-            <Image
-              src="https://img.icons8.com/color/48/mastercard.png"
-              width={45}
-              height={30}
-              alt="Mastercard"
-            />
-
-            <Image
-              src="https://img.icons8.com/color/48/paypal.png"
-              width={45}
-              height={30}
-              alt="Paypal"
-            />
+<Image
+  src="https://img.icons8.com/color/48/paypal.png"
+  alt="Paypal"
+  width={48}
+  height={48}
+  style={{ width: "auto", height: "30px" }}
+/>
+        
 
           </div>
 

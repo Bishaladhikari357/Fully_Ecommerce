@@ -38,50 +38,52 @@ export default function ContactEmail() {
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    const result = await dispatch(sendMessage(form));
+  const result = await dispatch(sendMessage(form));
 
-    if (sendMessage.fulfilled.match(result)) {
-      setForm({
-        name: "",
-        email: "",
-        subject: "",
-        message: "",
-      });
+  if (sendMessage.fulfilled.match(result)) {
 
-      Swal.fire({
-        icon: "success",
-        title: "Message Sent!",
-        html: `
-          <h3 style="margin-bottom:10px;">
-            Thank you for contacting us.
-          </h3>
-          <p>
-            We have received your message and our team will reply within 24 hours.
-          </p>
-        `,
-        confirmButtonText: "OK",
-        confirmButtonColor: "#f97316",
-        allowOutsideClick: false,
-      }).then(() => {
-        toast.success("🎉 Message sent successfully!", {
-          position: "top-right",
-          autoClose: 3000,
-        });
-      });
-    } else {
-      Swal.fire({
-        icon: "error",
-        title: "Oops!",
-        text: result.payload || "Failed to send message.",
-        confirmButtonColor: "#ef4444",
-      }).then(() => {
-        toast.error("❌ Please try again.");
-      });
+    console.log(result.payload);
+
+    /*
+    {
+      message:"Message sent successfully",
+      contact:{...}
     }
-  };
+    */
+
+    Swal.fire({
+      icon: "success",
+      title: result.payload.message,
+      html: `
+        <b>Thank you ${result.payload.contact.name}</b><br><br>
+        Your message has been sent successfully.<br>
+        We will reply to <b>${result.payload.contact.email}</b> soon.
+      `,
+      confirmButtonColor: "#f97316",
+    });
+
+    toast.success(result.payload.message);
+
+    setForm({
+      name: "",
+      email: "",
+      subject: "",
+      message: "",
+    });
+
+  } else {
+
+    Swal.fire({
+      icon: "error",
+      title: "Oops!",
+      text: result.payload,
+    });
+
+  }
+};
 
   return (
     <section className="bg-gray-50">

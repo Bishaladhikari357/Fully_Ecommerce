@@ -22,13 +22,92 @@ export default function BlogsList() {
     dispatch(fetchBlogs());
   }, [dispatch]);
 
-  if (loading) {
-    return (
-      <div className="py-20 text-center text-xl font-semibold">
-        Loading Blogs...
+ // ==========================
+// Skeleton Loading
+// ==========================
+if (loading) {
+  return (
+    <section className="bg-gray-50 py-20">
+      <div className="max-w-7xl mx-auto px-4">
+
+        {/* Heading Skeleton */}
+        <div className="flex items-center justify-between mb-12">
+          <div>
+            <div className="h-4 w-32 bg-gray-200 rounded animate-pulse"></div>
+            <div className="h-10 w-56 bg-gray-200 rounded mt-4 animate-pulse"></div>
+            <div className="h-4 w-72 bg-gray-200 rounded mt-4 animate-pulse"></div>
+          </div>
+
+          <div className="hidden md:block h-12 w-32 bg-gray-200 rounded-full animate-pulse"></div>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-8">
+
+          {/* Featured Blog Skeleton */}
+          <div className="bg-white rounded-3xl overflow-hidden shadow">
+
+            <div className="h-[500px] bg-gray-200 animate-pulse"></div>
+
+            <div className="p-8">
+              <div className="h-8 w-44 bg-gray-200 rounded animate-pulse"></div>
+
+              <div className="h-8 w-4/5 bg-gray-200 rounded mt-6 animate-pulse"></div>
+              <div className="h-8 w-2/3 bg-gray-200 rounded mt-3 animate-pulse"></div>
+
+              <div className="h-4 w-full bg-gray-200 rounded mt-6 animate-pulse"></div>
+              <div className="h-4 w-5/6 bg-gray-200 rounded mt-3 animate-pulse"></div>
+
+              <div className="flex gap-6 mt-8">
+                <div className="h-4 w-28 bg-gray-200 rounded animate-pulse"></div>
+                <div className="h-4 w-20 bg-gray-200 rounded animate-pulse"></div>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Side Blog Skeletons */}
+          <div className="space-y-8">
+
+            {[...Array(2)].map((_, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-3xl shadow overflow-hidden flex flex-col md:flex-row"
+              >
+
+                {/* Image */}
+                <div className="w-full md:w-72 h-64 bg-gray-200 animate-pulse"></div>
+
+                {/* Content */}
+                <div className="flex-1 p-6">
+
+                  <div className="h-4 w-24 bg-gray-200 rounded animate-pulse"></div>
+
+                  <div className="h-7 w-4/5 bg-gray-200 rounded mt-4 animate-pulse"></div>
+                  <div className="h-7 w-3/5 bg-gray-200 rounded mt-3 animate-pulse"></div>
+
+                  <div className="h-4 w-full bg-gray-200 rounded mt-5 animate-pulse"></div>
+                  <div className="h-4 w-5/6 bg-gray-200 rounded mt-3 animate-pulse"></div>
+
+                  <div className="flex gap-5 mt-6">
+                    <div className="h-4 w-24 bg-gray-200 rounded animate-pulse"></div>
+                    <div className="h-4 w-20 bg-gray-200 rounded animate-pulse"></div>
+                  </div>
+
+                  <div className="h-5 w-28 bg-gray-200 rounded mt-6 animate-pulse"></div>
+
+                </div>
+
+              </div>
+            ))}
+
+          </div>
+
+        </div>
+
       </div>
-    );
-  }
+    </section>
+  );
+}
 
   if (error) {
     return (

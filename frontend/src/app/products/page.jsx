@@ -5,12 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../../app/redux/Slices/ProductSlice";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  FaHeart,
-  FaShoppingCart,
-  FaEye,
-  FaStar,
-} from "react-icons/fa";
+import { FaHeart, FaEye, FaStar } from "react-icons/fa";
 
 export default function page() {
   const dispatch = useDispatch();
@@ -23,17 +18,79 @@ export default function page() {
     dispatch(fetchProducts());
   }, [dispatch]);
 
+  // ===========================
+  // Skeleton Loading
+  // ===========================
   if (loading) {
     return (
-      <div className="py-20 text-center text-xl font-semibold">
-        Loading Products...
-      </div>
+      <section className="bg-gray-50 py-12">
+        <div className="max-w-7xl mx-auto px-4">
+
+          {/* Heading Skeleton */}
+          <div className="text-center mb-10">
+            <div className="h-10 w-72 bg-gray-200 rounded mx-auto animate-pulse"></div>
+            <div className="h-4 w-56 bg-gray-200 rounded mx-auto mt-4 animate-pulse"></div>
+          </div>
+
+          {/* Product Skeleton */}
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {[...Array(8)].map((_, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-2xl shadow overflow-hidden"
+              >
+                {/* Image */}
+                <div className="h-64 bg-gray-200 animate-pulse"></div>
+
+                <div className="p-5">
+
+                  {/* Category */}
+                  <div className="h-4 w-20 bg-gray-200 rounded animate-pulse"></div>
+
+                  {/* Title */}
+                  <div className="h-6 w-40 bg-gray-200 rounded mt-4 animate-pulse"></div>
+
+                  {/* Brand */}
+                  <div className="h-4 w-24 bg-gray-200 rounded mt-3 animate-pulse"></div>
+
+                  {/* Rating */}
+                  <div className="flex gap-2 mt-4">
+                    {[...Array(5)].map((_, i) => (
+                      <div
+                        key={i}
+                        className="w-4 h-4 bg-gray-200 rounded animate-pulse"
+                      ></div>
+                    ))}
+                  </div>
+
+                  {/* Description */}
+                  <div className="h-4 bg-gray-200 rounded mt-4 animate-pulse"></div>
+                  <div className="h-4 bg-gray-200 rounded mt-2 w-5/6 animate-pulse"></div>
+
+                  {/* Price */}
+                  <div className="h-6 w-24 bg-gray-200 rounded mt-5 animate-pulse"></div>
+
+                  {/* Bottom */}
+                  <div className="flex justify-between items-center mt-6">
+                    <div className="h-4 w-24 bg-gray-200 rounded animate-pulse"></div>
+                    <div className="h-10 w-28 bg-gray-200 rounded-lg animate-pulse"></div>
+                  </div>
+
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     );
   }
 
+  // ===========================
+  // Error
+  // ===========================
   if (error) {
     return (
-      <div className="py-20 text-center text-red-500">
+      <div className="py-20 text-center text-red-500 text-lg">
         {error}
       </div>
     );
@@ -45,9 +102,10 @@ export default function page() {
 
         {/* Heading */}
         <div className="text-center mb-10">
-          <h2 className="text-4xl font-bold text-orange-400">
+          <h2 className="text-4xl font-bold text-orange-500">
             Featured Products
           </h2>
+
           <p className="text-gray-500 mt-2">
             Discover our latest collection.
           </p>
@@ -56,11 +114,13 @@ export default function page() {
         {/* Product Grid */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 
-          {products.map((product) => (
+          {products.slice(0, 8).map((product) => (
+
             <div
               key={product.id}
               className="bg-white rounded-2xl overflow-hidden shadow hover:shadow-xl transition-all duration-300 group"
             >
+
               {/* Image */}
               <div className="relative overflow-hidden">
 
@@ -74,10 +134,12 @@ export default function page() {
                   />
                 </Link>
 
-                {/* Sale Badge */}
-                <span className="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full text-xs">
-                  SALE
-                </span>
+                {/* Discount */}
+                {product.discount > 0 && (
+                  <span className="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-semibold">
+                    {product.discount}% OFF
+                  </span>
+                )}
 
                 {/* Wishlist */}
                 <button className="absolute top-4 right-4 bg-white p-2 rounded-full shadow hover:bg-red-500 hover:text-white transition">
@@ -104,7 +166,7 @@ export default function page() {
                   {product.category}
                 </p>
 
-                <h3 className="text-xl text-orange-400 font-bold mt-2 line-clamp-2  transition">
+                <h3 className="text-xl font-bold mt-2 text-orange-500 line-clamp-2 hover:text-orange-600 transition">
                   <Link href={`/products/${product.slug}`}>
                     {product.name}
                   </Link>
@@ -115,14 +177,14 @@ export default function page() {
                 </p>
 
                 {/* Rating */}
-                <div className="flex items-center gap-1 mt-3 text-yellow-500">
-                  <FaStar />
-                  <FaStar />
-                  <FaStar />
-                  <FaStar />
+                <div className="flex items-center gap-1 mt-3">
+                  <FaStar className="text-yellow-400" />
+                  <FaStar className="text-yellow-400" />
+                  <FaStar className="text-yellow-400" />
+                  <FaStar className="text-yellow-400" />
                   <FaStar className="text-gray-300" />
 
-                  <span className="text-gray-500 ml-2 text-sm">
+                  <span className="ml-2 text-sm text-gray-500">
                     (4.8)
                   </span>
                 </div>
@@ -133,22 +195,65 @@ export default function page() {
 
                 {/* Price */}
                 <div className="mt-5 flex items-center gap-3">
+
                   <span className="text-2xl font-bold text-blue-600">
-                    ${product.price}
+                    ${Number(product.price).toFixed(2)}
                   </span>
 
-                  <span className="text-gray-400 line-through">
-                    ${(product.price * 1.2).toFixed(2)}
-                  </span>
+                  {product.discount > 0 && (
+                    <span className="text-gray-400 line-through">
+                      $
+                      {(
+                        Number(product.price) /
+                        (1 - product.discount / 100)
+                      ).toFixed(2)}
+                    </span>
+                  )}
+
                 </div>
 
-                
+                {/* Stock */}
+                <div className="mt-4 flex items-center justify-between">
+
+                  <span
+                    className={`text-sm font-medium ${
+                      product.stock > 0
+                        ? "text-green-600"
+                        : "text-red-500"
+                    }`}
+                  >
+                    {product.stock > 0
+                      ? `${product.stock} In Stock`
+                      : "Out of Stock"}
+                  </span>
+
+                  <Link
+                    href={`/products/${product.slug}`}
+                    className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition"
+                  >
+                    View Details
+                  </Link>
+
+                </div>
 
               </div>
+
             </div>
+
           ))}
 
         </div>
+
+        {/* View All */}
+        <div className="text-center mt-12">
+          <Link
+            href="/products"
+            className="inline-block bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-full font-semibold transition"
+          >
+            View All Products
+          </Link>
+        </div>
+
       </div>
     </section>
   );

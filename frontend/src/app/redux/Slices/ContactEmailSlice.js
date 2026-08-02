@@ -1,20 +1,26 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API = "https://fully-ecommerce.onrender.com/api/contact";
 
-// ==========================
-// Send Contact Message
-// ==========================
 export const sendMessage = createAsyncThunk(
   "contact/sendMessage",
   async (formData, { rejectWithValue }) => {
     try {
-      const res = await axios.post(API, formData);
-      return res.data;
+      const response = await axios.post(
+        "https://fully-ecommerce.onrender.com/api/contact",
+        formData
+      );
+
+      console.log("SUCCESS:", response.data);
+
+      return response.data;
     } catch (error) {
+      console.log("ERROR:", error);
+      console.log("STATUS:", error.response?.status);
+      console.log("DATA:", error.response?.data);
+
       return rejectWithValue(
-        error.response?.data?.message || "Failed to send message"
+        error.response?.data?.message || error.message
       );
     }
   }
@@ -31,7 +37,14 @@ const ContactEmailSlice = createSlice({
     error: null,
   },
 
-  reducers: {},
+  reducers: {
+    clearState(state) {
+      state.success = false;
+      state.error = null;
+      state.contact = null;
+      state.message = "";
+    },
+  },
 
   extraReducers: (builder) => {
     builder
@@ -45,15 +58,18 @@ const ContactEmailSlice = createSlice({
       .addCase(sendMessage.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.contact = action.payload.contact;
         state.message = action.payload.message;
+        state.contact = action.payload.contact;
       })
 
       .addCase(sendMessage.rejected, (state, action) => {
         state.loading = false;
+        state.success = false;
         state.error = action.payload;
       });
   },
 });
+
+export const { clearState } = ContactEmailSlice.actions;
 
 export default ContactEmailSlice.reducer;
